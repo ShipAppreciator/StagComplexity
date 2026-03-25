@@ -1,0 +1,11 @@
+{{ block title }}Round {{ player.round_number }} of {{ C.NUM_ROUNDS }} — Your Role{{ endblock }}
+
+{{ block content }}
+{{ if role == 1 }}
+<p>You have been assigned to be <strong>Player 1</strong> this round. This means you make your decision first, then your partner observes this decision before making theirs.</p>
+{{ else }}
+<p>You have been assigned to be <strong>Player 2</strong> this round. This means you make your decision second, and get to observe the decision Player 1 has made.</p>
+{{ endif }}
+
+{{ next_button }}
+{{ endblock }}
