@@ -11,7 +11,7 @@ Players are randomly rematched each round.
 class C(BaseConstants):
     NAME_IN_URL = 'easyseq'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 2
+    NUM_ROUNDS = 10
 
     # Payoff matrix (in points)
     HARE_HARE   = 6
