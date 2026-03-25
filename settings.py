@@ -39,7 +39,12 @@ USE_POINTS = True
 DEMO_PAGE_INTRO_HTML = ''
 PARTICIPANT_FIELDS = []
 SESSION_FIELDS = ['treatment']
-ROOMS = []
+ROOMS = [
+    dict(
+        name='my_lab',
+        display_name='My Lab',
+    ),
+]
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
 ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
