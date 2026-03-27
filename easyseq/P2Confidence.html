@@ -1,0 +1,103 @@
+{{ block title }}Round {{ player.round_number }} of {{ C.NUM_ROUNDS }} — Confidence{{ endblock }}
+
+{{ block content }}
+<p>You chose <strong>{{ choice }}</strong>.</p>
+<p><strong>How certain are you that choosing {{ choice }} is actually your best decision, given your preferences and the available information?</strong></p>
+
+<style>
+    .slider {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 300px;
+        height: 10px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+    .slider:hover {
+        opacity: 1;
+    }
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        background: #4CAF50;
+        cursor: pointer;
+    }
+    .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background: #4CAF50;
+        cursor: pointer;
+    }
+    .slider2 {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 300px;
+        height: 10px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+    .slider2:hover {
+        opacity: 1;
+    }
+    .slider2::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        background: #4CAF50;
+        cursor: pointer;
+        visibility: hidden;
+    }
+    .slider2::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background: #4CAF50;
+        cursor: pointer;
+        visibility: hidden;
+    }
+</style>
+
+<div style="display: flex; align-items: center; gap: 1em; margin-top: 1em;">
+    <span>0%</span>
+    <input type="range" min="0" max="100"
+           id="id_confidence" name="confidence"
+           class="slider2"
+           oninput="handleSlider(this.value)"
+           style="width: 300px;">
+    <span>100%</span>
+    <strong><span id="confidence-val">—</span></strong>
+</div>
+
+{{ next_button }}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var sliderTouched = false;
+
+        window.handleSlider = function(value) {
+            if (!sliderTouched) {
+                sliderTouched = true;
+                document.getElementById('id_confidence').className = 'slider';
+            }
+            document.getElementById('confidence-val').innerText = value + '%';
+        };
+
+        document.querySelector('.otree-btn-next').addEventListener('click', function(e) {
+            if (!sliderTouched) {
+                e.preventDefault();
+                e.stopPropagation();
+                alert('Please indicate your confidence level before proceeding.');
+            }
+        });
+    });
+</script>
+
+{{ endblock }}
