@@ -90,6 +90,9 @@ def set_payoffs(group: Group):
 
 
 # ——— Pages ———
+class WaitForEveryone(WaitPage):
+    wait_for_all_groups = True
+    body_text = 'Waiting for all participants to finish the round...'
 
 class Instructions(Page):
     @staticmethod
@@ -191,7 +194,6 @@ class Results(Page):
             is_payment_round=player.is_payment_round,
             payoff=player.participant.payoff if player.is_payment_round else None,
         )
-
 page_sequence = [
     Instructions,
     ComprehensionCheck,
@@ -203,4 +205,5 @@ page_sequence = [
     P2Confidence,
     ResultsWaitPage,
     Results,
+    WaitForEveryone,
 ]

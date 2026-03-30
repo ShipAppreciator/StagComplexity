@@ -7,8 +7,8 @@
     <thead>
         <tr>
             <th></th>
-            <th>Partner chooses A</th>
-            <th>Partner chooses B</th>
+            <th>Other Player Chooses A</th>
+            <th>Other Player Chooses B</th>
         </tr>
     </thead>
     <tbody>
@@ -31,6 +31,15 @@
 <p id="confirm-text" style="display:none; margin-top: 1em;"></p>
 
 {{ next_button }}
+
+<hr style="margin-top: 2em;">
+<p><strong>Instructions Summary:</strong></p>
+<ul>
+    <li>You will be paid for your performance in a randomly selected round.</li>
+    <li>You will be randomly rematched with another participant each round.</li>
+    <li>You will be randomly assigned a new role each round.</li>
+    <li>Your payoff depends both on what you choose and what the other player chooses</li>
+</ul>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

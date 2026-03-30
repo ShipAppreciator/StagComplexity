@@ -114,11 +114,23 @@ class ComprehensionCheck(Page):
             errors['comp3'] = 'Incorrect. Both players choose simultaneously without seeing the other\'s action.'
         return errors
 
-
 class Game(Page):
     form_model = 'player'
-    form_fields = ['choice', 'confidence']
+    form_fields = ['choice']
 
+
+class Confidence(Page):
+    form_model = 'player'
+    form_fields = ['confidence']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        return dict(choice=player.choice)
+
+
+class WaitForEveryone(WaitPage):
+    wait_for_all_groups = True
+    body_text = 'Waiting for all participants to finish the round...'
 
 class ResultsWaitPage(WaitPage):
     after_all_players_arrive = set_payoffs
@@ -144,6 +156,8 @@ page_sequence = [
     Instructions,
     ComprehensionCheck,
     Game,
+    Confidence,
     ResultsWaitPage,
     Results,
+    WaitForEveryone,
 ]

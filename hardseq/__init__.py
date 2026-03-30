@@ -2,7 +2,7 @@ from otree.api import *
 import random
 
 doc = """
-Easy Sequential Stag Hunt
+Hard Sequential Stag Hunt
 Player 1 moves first, then Player 2 sees Player 1's choice before deciding.
 Played for 10 rounds; one round selected at random for payment.
 Players are randomly rematched each round.
@@ -34,7 +34,7 @@ class Player(BasePlayer):
         label='Your choice:',
         widget=widgets.RadioSelect,
     )
-    confidence = models.IntegerField(min=0, max=100, initial=50, label='')
+    confidence = models.IntegerField(min=0, max=100, label='')
     is_payment_round = models.BooleanField(initial=False)
     comp1 = models.BooleanField(
         label='True or false: you will be paid for your performance in each round.',
@@ -90,6 +90,9 @@ def set_payoffs(group: Group):
 
 
 # ——— Pages ———
+class WaitForEveryone(WaitPage):
+    wait_for_all_groups = True
+    body_text = 'Waiting for all participants to finish the round...'
 
 class Instructions(Page):
     @staticmethod
@@ -122,7 +125,7 @@ class ComprehensionCheck(Page):
 
 class P1Decision(Page):
     form_model = 'player'
-    form_fields = ['choice', 'confidence']
+    form_fields = ['choice']
 
     @staticmethod
     def is_displayed(player: Player):
@@ -135,7 +138,7 @@ class WaitForP1(WaitPage):
 
 class P2Decision(Page):
     form_model = 'player'
-    form_fields = ['choice', 'confidence']
+    form_fields = ['choice']
 
     @staticmethod
     def is_displayed(player: Player):
@@ -145,6 +148,32 @@ class P2Decision(Page):
     def vars_for_template(player: Player):
         p1 = player.group.get_player_by_id(1)
         return dict(p1_choice=p1.choice)
+
+
+class P1Confidence(Page):
+    form_model = 'player'
+    form_fields = ['confidence']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.id_in_group == 1
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        return dict(choice=player.choice)
+
+
+class P2Confidence(Page):
+    form_model = 'player'
+    form_fields = ['confidence']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.id_in_group == 2
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        return dict(choice=player.choice)
 
 
 class ResultsWaitPage(WaitPage):
@@ -165,15 +194,16 @@ class Results(Page):
             is_payment_round=player.is_payment_round,
             payoff=player.participant.payoff if player.is_payment_round else None,
         )
-
-
 page_sequence = [
     Instructions,
     ComprehensionCheck,
     RoleAssignment,
     P1Decision,
+    P1Confidence,
     WaitForP1,
     P2Decision,
+    P2Confidence,
     ResultsWaitPage,
     Results,
+    WaitForEveryone,
 ]

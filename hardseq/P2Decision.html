@@ -2,78 +2,56 @@
 
 {{ block content }}
 
-<div id="decision-section">
-    <p>You are <strong>Player 2</strong>. Player 1 has chosen: <strong>{{ p1_choice }}</strong></p>
+<p>You are <strong>Player 2</strong>. Player 1 has chosen: <strong>{{ p1_choice }}</strong></p>
+<table class="table table-bordered w-auto">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Other Player Chooses A</th>
+            <th>Other Player Chooses B</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>You choose A</th>
+            <td>{{ C.HARE_HARE }}, {{ C.HARE_HARE }}</td>
+            <td>{{ C.HARE_STAG }}, {{ C.STAG_HARE }}</td>
+        </tr>
+        <tr>
+            <th>You choose B</th>
+            <td>{{ C.STAG_HARE }}, {{ C.HARE_STAG }}</td>
+            <td>{{ C.STAG_STAG }}, {{ C.STAG_STAG }}</td>
+        </tr>
+    </tbody>
+</table>
+<p class="text-muted small">Payoffs shown as (Your payoff, Partner's payoff)</p>
 
-    <table class="table table-bordered w-auto">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Partner chooses A</th>
-                <th>Partner chooses B</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th>You choose A</th>
-                <td>{{ C.HARE_HARE }}, {{ C.HARE_HARE }}</td>
-                <td>{{ C.HARE_STAG }}, {{ C.STAG_HARE }}</td>
-            </tr>
-            <tr>
-                <th>You choose B</th>
-                <td>{{ C.STAG_HARE }}, {{ C.HARE_STAG }}</td>
-                <td>{{ C.STAG_STAG }}, {{ C.STAG_STAG }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <p class="text-muted small">Payoffs shown as (Your payoff, Partner's payoff)</p>
+{{ formfield 'choice' }}
 
-    {{ formfield 'choice' }}
+<p id="confirm-text" style="display:none; margin-top: 1em;"></p>
 
-    <div id="confidence-section" style="display:none; margin-top: 1.5em;">
-        <p><strong>How certain are you that choosing '<span id="choice-label"></span>' is actually your best decision, given your preferences and the available information?</strong></p>
-        <div style="display: flex; align-items: center; gap: 1em;">
-            <span>0%</span>
-            <input type="range" min="0" max="100" value="50"
-                   id="id_confidence" name="confidence"
-                   oninput="document.getElementById('confidence-val').innerText = this.value + '%'"
-                   style="width: 300px;">
-            <span>100%</span>
-            <strong><span id="confidence-val">50%</span></strong>
-        </div>
-    </div>
+{{ next_button }}
 
-    <button type="button" id="show_confirm" style="display:none; margin-top: 1em;" class="btn btn-primary">Next</button>
-</div>
-
-<div id="confirm-section" style="display:none; margin-top: 1.5em;">
-    <p id="confirm-text"></p>
-    <button type="button" id="go_back" class="btn btn-secondary" style="margin-right: 1em;">No, go back</button>
-    {{ next_button }}
-</div>
+<hr style="margin-top: 2em;">
+<p><strong>Instructions Summary:</strong></p>
+<ul>
+    <li>You will be paid for your performance in a randomly selected round.</li>
+    <li>You will be randomly rematched with another participant each round.</li>
+    <li>You will be randomly assigned a new role each round.</li>
+    <li>Your payoff depends both on what you choose and what the other player chooses</li>
+</ul>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        var nextBtn = document.querySelector('.otree-btn-next');
+        nextBtn.style.display = 'none';
+
         document.querySelectorAll('input[name="choice"]').forEach(function(radio) {
             radio.addEventListener('change', function() {
-                document.getElementById('choice-label').innerText = this.value;
-                document.getElementById('confidence-section').style.display = 'block';
-                document.getElementById('show_confirm').style.display = 'inline-block';
+                document.getElementById('confirm-text').innerText = 'You have selected ' + this.value + '. Press Next to continue.';
+                document.getElementById('confirm-text').style.display = 'block';
+                nextBtn.style.display = 'inline-block';
             });
-        });
-
-        document.getElementById('show_confirm').addEventListener('click', function() {
-            var choice = document.querySelector('input[name="choice"]:checked').value;
-            var confidence = document.getElementById('id_confidence').value;
-            document.getElementById('confirm-text').innerText =
-                'You have selected ' + choice + ' and are ' + confidence + '% confident that this decision is optimal. Would you like to proceed?';
-            document.getElementById('decision-section').style.display = 'none';
-            document.getElementById('confirm-section').style.display = 'block';
-        });
-
-        document.getElementById('go_back').addEventListener('click', function() {
-            document.getElementById('confirm-section').style.display = 'none';
-            document.getElementById('decision-section').style.display = 'block';
         });
     });
 </script>

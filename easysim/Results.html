@@ -4,7 +4,7 @@
 {{ if player.round_number == C.NUM_ROUNDS }}
 <p>This was the final round. Round {{ payment_round }} was chosen as your payment round. You earned {{ player.participant.payoff_in_real_world_currency }} in addition to your participation fee.</p>
 {{ else }}
-<p>The other player made their choice. We will now move to the next round.</p>
+<p>The other player made their choice. You will be randomly matched with a player and we will now move to the next round.</p>
 {{ endif }}
 
 {{ next_button }}
