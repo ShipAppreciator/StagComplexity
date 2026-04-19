@@ -1,7 +1,6 @@
 {{ block title }}Round {{ player.round_number }} of {{ C.NUM_ROUNDS }} — Your Decision{{ endblock }}
 
 {{ block content }}
-
 <p>Choose A or B. Both players choose simultaneously — you will not see the other player's choice before deciding.</p>
 
 <table class="table table-bordered w-auto">
@@ -13,12 +12,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr id="row-A">
             <th>You choose A</th>
             <td>{{ C.HARE_HARE }}, {{ C.HARE_HARE }}</td>
             <td>{{ C.HARE_STAG }}, {{ C.STAG_HARE }}</td>
         </tr>
-        <tr>
+        <tr id="row-B">
             <th>You choose B</th>
             <td>{{ C.STAG_HARE }}, {{ C.HARE_STAG }}</td>
             <td>{{ C.STAG_STAG }}, {{ C.STAG_STAG }}</td>
@@ -43,6 +42,10 @@
                 document.getElementById('confirm-text').innerText = 'You have selected ' + this.value + '. Press Next to continue.';
                 document.getElementById('confirm-text').style.display = 'block';
                 nextBtn.style.display = 'inline-block';
+
+                document.getElementById('row-A').style.backgroundColor = '';
+                document.getElementById('row-B').style.backgroundColor = '';
+                document.getElementById('row-' + this.value).style.backgroundColor = '#d4edda';
             });
         });
     });
@@ -53,7 +56,7 @@
 <ul>
     <li>You will be paid for your performance in a randomly selected round.</li>
     <li>You will be randomly rematched with another participant each round.</li>
-    <li>You will be randomly assigned a new role each round.</li>
+    <li>The payoff you receive for the randomly selected game depends on you and the player whom you were matched with's decision during that round.</li>
 </ul>
 
 {{ endblock }}

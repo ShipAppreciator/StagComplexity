@@ -2,7 +2,7 @@ from otree.api import *
 import random
 
 doc = """
-Easy Simultaneous Stag Hunt
+hard Simultaneous Stag Hunt
 Both players choose simultaneously without seeing the other's action.
 Played for 10 rounds; one round selected at random for payment.
 """
@@ -47,6 +47,41 @@ class Player(BasePlayer):
         label='True or false: you will not see the other player\'s choice before making your own decision.',
         widget=widgets.RadioSelect,
         choices=[[True, 'True'], [False, 'False']],
+    )
+
+    thought_process = models.LongStringField(
+    label='What was your thought process in making your decision?'
+    )
+    major = models.StringField(
+        label='What is your major?',
+        choices=[
+            'Accounting',
+            'Biology',
+            'Business Administration',
+            'Chemistry',
+            'Communications',
+            'Computer Science',
+            'Economics',
+            'Education',
+            'Engineering',
+            'English',
+            'Finance',
+            'History',
+            'Information Systems',
+            'Marketing',
+            'Mathematics',
+            'Nursing',
+            'Philosophy',
+            'Physics',
+            'Political Science',
+            'Psychology',
+            'Sociology',
+            'Statistics',
+            'Other',
+        ],
+    )
+    strategy_update = models.LongStringField(
+        label='Did you update your strategy throughout the session?'
     )
 
 
@@ -114,11 +149,23 @@ class ComprehensionCheck(Page):
             errors['comp3'] = 'Incorrect. Both players choose simultaneously without seeing the other\'s action.'
         return errors
 
-
 class Game(Page):
     form_model = 'player'
-    form_fields = ['choice', 'confidence']
+    form_fields = ['choice']
 
+
+class Confidence(Page):
+    form_model = 'player'
+    form_fields = ['confidence']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        return dict(choice=player.choice)
+
+
+class WaitForEveryone(WaitPage):
+    wait_for_all_groups = True
+    body_text = 'Waiting for all participants to finish the round...'
 
 class ResultsWaitPage(WaitPage):
     after_all_players_arrive = set_payoffs
@@ -139,11 +186,31 @@ class Results(Page):
             payoff=player.participant.payoff if player.is_payment_round else None,
         )
 
+class Survey(Page):
+    form_model = 'player'
+    form_fields = ['thought_process', 'major', 'strategy_update']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == C.NUM_ROUNDS
+
+class ThankYou(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == C.NUM_ROUNDS
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        return dict(payoff=player.participant.payoff_in_real_world_currency)
 
 page_sequence = [
     Instructions,
     ComprehensionCheck,
     Game,
+    Confidence,
     ResultsWaitPage,
     Results,
+    WaitForEveryone,
+    Survey,
+    ThankYou
 ]

@@ -6,4 +6,38 @@
 {{ formfields }}
 
 {{ next_button }}
+<hr style="margin-top: 2em;">
+<p><strong>Instructions Summary:</strong></p>
+<ul>
+    <li>You will be paid for your performance in a randomly selected round.</li>
+    <li>You will be randomly rematched with another participant each round.</li>
+    <li>The payoff you receive for the randomly selected game depends on you and the player whom you were matched with during that round.</li>
+</ul>
+
+<p><strong>Payoff Table:</strong></p>
+<table class="table table-bordered w-auto">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Other Player Chooses A</th>
+            <th>Other Player Chooses B</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>You choose A</th>
+            <td>{{ C.HARE_HARE }}, {{ C.HARE_HARE }}</td>
+            <td>{{ C.HARE_STAG }}, {{ C.STAG_HARE }}</td>
+        </tr>
+        <tr>
+            <th>You choose B</th>
+            <td>{{ C.STAG_HARE }}, {{ C.HARE_STAG }}</td>
+            <td>{{ C.STAG_STAG }}, {{ C.STAG_STAG }}</td>
+        </tr>
+    </tbody>
+</table>
+<p class="text-muted small">Payoffs shown as (Your payoff, Partner's payoff)</p>
+
+
+
 {{ endblock }}

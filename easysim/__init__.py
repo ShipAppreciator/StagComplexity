@@ -49,6 +49,41 @@ class Player(BasePlayer):
         choices=[[True, 'True'], [False, 'False']],
     )
 
+    thought_process = models.LongStringField(
+    label='What was your thought process in making your decision?'
+    )
+    major = models.StringField(
+        label='What is your major?',
+        choices=[
+            'Accounting',
+            'Biology',
+            'Business Administration',
+            'Chemistry',
+            'Communications',
+            'Computer Science',
+            'Economics',
+            'Education',
+            'Engineering',
+            'English',
+            'Finance',
+            'History',
+            'Information Systems',
+            'Marketing',
+            'Mathematics',
+            'Nursing',
+            'Philosophy',
+            'Physics',
+            'Political Science',
+            'Psychology',
+            'Sociology',
+            'Statistics',
+            'Other',
+        ],
+    )
+    strategy_update = models.LongStringField(
+        label='Did you update your strategy throughout the session?'
+    )
+
 
 # ——— Functions ———
 
@@ -151,6 +186,22 @@ class Results(Page):
             payoff=player.participant.payoff if player.is_payment_round else None,
         )
 
+class Survey(Page):
+    form_model = 'player'
+    form_fields = ['thought_process', 'major', 'strategy_update']
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == C.NUM_ROUNDS
+
+class ThankYou(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == C.NUM_ROUNDS
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        return dict(payoff=player.participant.payoff_in_real_world_currency)
 
 page_sequence = [
     Instructions,
@@ -160,4 +211,6 @@ page_sequence = [
     ResultsWaitPage,
     Results,
     WaitForEveryone,
+    Survey,
+    ThankYou
 ]

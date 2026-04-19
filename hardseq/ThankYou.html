@@ -1,0 +1,16 @@
+{{ block title }}Thank You{{ endblock }}
+
+{{ block content }}
+<h3>Thank you for participating!</h3>
+
+<p>You have completed all {{ C.NUM_ROUNDS }} rounds of the experiment.</p>
+
+<p>Your payment for this experiment is as follows:</p>
+<ul>
+    <li>Participation fee: $5.00</li>
+    <li>Performance payment: {{ payoff }}</li>
+</ul>
+
+<p>Please wait on the experimenter to call on you to receive your payment.</p>
+
+{{ endblock }}

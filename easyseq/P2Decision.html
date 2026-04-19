@@ -3,6 +3,7 @@
 {{ block content }}
 
 <p>You are <strong>Player 2</strong>. Player 1 has chosen: <strong>{{ p1_choice }}</strong></p>
+
 <table class="table table-bordered w-auto">
     <thead>
         <tr>
@@ -12,19 +13,19 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr id="row-A">
             <th>You choose A</th>
             <td>{{ C.HARE_HARE }}, {{ C.HARE_HARE }}</td>
             <td>{{ C.HARE_STAG }}, {{ C.STAG_HARE }}</td>
         </tr>
-        <tr>
+        <tr id="row-B">
             <th>You choose B</th>
             <td>{{ C.STAG_HARE }}, {{ C.HARE_STAG }}</td>
             <td>{{ C.STAG_STAG }}, {{ C.STAG_STAG }}</td>
         </tr>
     </tbody>
 </table>
-<p class="text-muted small">Payoffs shown as (Your payoff, Partner's payoff)</p>
+<p class="text-muted small">Payoffs shown as (Your payoff, Other Player's payoff)</p>
 
 {{ formfield 'choice' }}
 
@@ -38,7 +39,7 @@
     <li>You will be paid for your performance in a randomly selected round.</li>
     <li>You will be randomly rematched with another participant each round.</li>
     <li>You will be randomly assigned a new role each round.</li>
-    <li>Your payoff depends both on what you choose and what the other player chooses</li>
+    <li>Your payoff depends both on what you choose and what the other player chooses.</li>
 </ul>
 
 <script>
@@ -51,6 +52,10 @@
                 document.getElementById('confirm-text').innerText = 'You have selected ' + this.value + '. Press Next to continue.';
                 document.getElementById('confirm-text').style.display = 'block';
                 nextBtn.style.display = 'inline-block';
+
+                document.getElementById('row-A').style.backgroundColor = '';
+                document.getElementById('row-B').style.backgroundColor = '';
+                document.getElementById('row-' + this.value).style.backgroundColor = '#d4edda';
             });
         });
     });

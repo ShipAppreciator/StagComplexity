@@ -18,7 +18,11 @@ period, <strong>raise your hand</strong>. Your question will then be answered <s
 <li>You will be randomly paired with another person for each round.</li>
 <li>In each round, you will be randomly assigned a role.</li>
 <li>If you are selected to be Player 1, you will choose first. You will be asked to choose either action A or B.</li>
-<li>If you are selected to be Player 2, you will choose A or B after observing Player 1's action. After making your decision, you will be asked "How certain are you that choosing your action is actually your best decision, given your preferences and the available information?" on a scale of 0% (completely uncertain) to 100% (completely certain).</li>
+<li>You will then be asked "How certain are you that choosing your action is actually your best decision, given your preferences and the available information?" on a scale of 0% (completely uncertain) to 100% (completely certain).</li>
+<li>If you are selected to be Player 2, you will choose A or B after observing Player 1's action.</li>
+<li>After making your decision, you will be asked "How certain are you that choosing your action is actually your best decision, given your preferences and the available information?" on a scale of 0% (completely uncertain) to 100% (completely certain).</li>
+<li>After 10 rounds, you will both take a short exit survey</li>
+<li> You will not be informed of the outcome of any individual round until the last round, where you will be informed of the result in your payment round</li>
 <br><br>
 Your payoff depends on both your action and the person with whom you are matched's action. You will be paid for one randomly selected round out of the 10 that you play. The payoff table is as follows:
 </ol>
@@ -46,7 +50,7 @@ Your payoff depends on both your action and the person with whom you are matched
 <p>Your payoff is always the first number. For example: </p>
 <ol>
 <li>if you choose A and the other player chooses B, you will receive ${{ C.HARE_STAG }} if this round is selected for payment.</li>
-<li>if you both choose B, you will receive ${{ C.STAG_STAG }}. You will not be informed of the outcome of any individual round.</li>
+<li>if you both choose B, you will receive ${{ C.STAG_STAG }}.</li>
     <li>if you both choose A then you will receive ${{C.HARE_HARE}}</li>
     <li>if you choose B and the other player chooses A then you will receive ${{C.STAG_HARE}}</li>
 </ol>
