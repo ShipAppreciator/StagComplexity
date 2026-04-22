@@ -28,6 +28,9 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    comp1_correct = models.BooleanField(initial=False)
+    comp2_correct = models.BooleanField(initial=False)
+    comp3_correct = models.BooleanField(initial=False)
     choice = models.StringField(
         choices=['A', 'B'],
         label='Your choice:',
@@ -113,15 +116,23 @@ def set_payoffs(group: Group):
         group.session.vars['payment_round'] = random.randint(1, C.NUM_ROUNDS)
 
     payment_round = group.session.vars['payment_round']
-    if group.round_number == payment_round:
-        for p in [p1, p2]:
+
+    for p in [p1, p2]:
+        if group.round_number == payment_round:
             p.is_payment_round = True
-            p.participant.payoff = p.payoff
-    else:
-        for p in [p1, p2]:
+        else:
             p.payoff = 0
 
-
+    if group.round_number == C.NUM_ROUNDS:
+        for p in [p1, p2]:
+            p_round1 = p.in_round(1)
+            comp_earnings = sum([
+                p_round1.comp1_correct,
+                p_round1.comp2_correct,
+                p_round1.comp3_correct,
+            ])
+            game_earnings = p.in_round(payment_round).payoff
+            p.participant.payoff = comp_earnings + game_earnings
 # ——— Pages ———
 
 class Instructions(Page):
@@ -139,15 +150,30 @@ class ComprehensionCheck(Page):
         return player.round_number == 1
 
     @staticmethod
-    def error_message(player, values):
-        errors = {}
-        if values['comp1'] != False:
-            errors['comp1'] = 'Incorrect. You will only be paid for one randomly selected round.'
-        if values['comp2'] != 0:
-            errors['comp2'] = 'Incorrect. If you pick B and the other player picks A, you earn 0 points.'
-        if values['comp3'] != True:
-            errors['comp3'] = 'Incorrect. Both players choose simultaneously without seeing the other\'s action.'
-        return errors
+    def before_next_page(player, timeout_happened):
+        if player.comp1 == False:
+            player.comp1_correct = True
+            player.participant.payoff += 1
+        if player.comp2 == 0:
+            player.comp2_correct = True
+            player.participant.payoff += 1
+        if player.comp3 == True:
+            player.comp3_correct = True
+            player.participant.payoff += 1
+
+class ComprehensionResults(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        return dict(
+            comp1_correct=player.comp1_correct,
+            comp2_correct=player.comp2_correct,
+            comp3_correct=player.comp3_correct,
+            total=sum([player.comp1_correct, player.comp2_correct, player.comp3_correct]),
+        )
 
 class Game(Page):
     form_model = 'player'
@@ -206,6 +232,7 @@ class ThankYou(Page):
 page_sequence = [
     Instructions,
     ComprehensionCheck,
+    ComprehensionResults,
     Game,
     Confidence,
     ResultsWaitPage,

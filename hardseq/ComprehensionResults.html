@@ -1,0 +1,34 @@
+{{ block title }}Comprehension Check Results{{ endblock }}
+
+{{ block content }}
+<p>You answered <strong>{{ total }} out of 3</strong> questions correctly and have earned <strong>${{ total }}.00</strong> for the comprehension check.</p>
+
+<table class="table table-bordered w-auto">
+    <thead>
+        <tr>
+            <th>Question</th>
+            <th>Your Result</th>
+            <th>Correct Answer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>You will be paid for your performance in each round.</td>
+            <td>{{ if comp1_correct }}<span style="color:green;">✓ Correct</span>{{ else }}<span style="color:red;">✗ Incorrect</span>{{ endif }}</td>
+            <td>False — you are paid for one randomly selected round.</td>
+        </tr>
+        <tr>
+            <td>If you pick B and the other player picks A, how much will you earn?</td>
+            <td>{{ if comp2_correct }}<span style="color:green;">✓ Correct</span>{{ else }}<span style="color:red;">✗ Incorrect</span>{{ endif }}</td>
+            <td>$0</td>
+        </tr>
+        <tr>
+            <td>If you are Player 2, you will not see the other player's action.</td>
+            <td>{{ if comp3_correct }}<span style="color:green;">✓ Correct</span>{{ else }}<span style="color:red;">✗ Incorrect</span>{{ endif }}</td>
+            <td>False — Player 2 observes Player 1's choice before deciding.</td>
+        </tr>
+    </tbody>
+</table>
+
+{{ next_button }}
+{{ endblock }}
