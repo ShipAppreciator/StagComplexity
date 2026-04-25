@@ -35,7 +35,7 @@ SESSION_CONFIGS = [
 
 LANGUAGE_CODE = 'en'
 REAL_WORLD_CURRENCY_CODE = 'USD'
-USE_POINTS = True
+USE_POINTS = False
 DEMO_PAGE_INTRO_HTML = ''
 PARTICIPANT_FIELDS = []
 SESSION_FIELDS = ['treatment']
@@ -43,6 +43,7 @@ ROOMS = [
     dict(
         name='my_lab',
         display_name='My Lab',
+        participant_label_file='participant_labels.txt',
     ),
 ]
 ADMIN_USERNAME = 'admin'

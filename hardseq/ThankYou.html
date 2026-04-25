@@ -2,15 +2,16 @@
 
 {{ block content }}
 <h3>Thank you for participating!</h3>
-
 <p>You have completed all {{ C.NUM_ROUNDS }} rounds of the experiment.</p>
+
+<p>Round <strong>{{ payment_round }}</strong> was selected as your payment round. In that round you chose <strong>{{ your_choice }}</strong> and the other player chose <strong>{{ other_choice }}</strong>.</p>
 
 <p>Your payment for this experiment is as follows:</p>
 <ul>
     <li>Participation fee: $5.00</li>
-    <li>Performance payment: {{ payoff }}</li>
+    <li>Comprehension check: ${{ comp_earnings }}.00</li>
+    <li>Performance payment: {{ game_earnings }}</li>
 </ul>
 
-<p>Please wait on the experimenter to call on you to receive your payment.</p>
-
+<p>Please wait for the experimenter to call on you to receive your payment.</p>
 {{ endblock }}

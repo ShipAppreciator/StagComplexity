@@ -2,7 +2,7 @@
 
 {{ block content }}
 {{ if player.round_number == C.NUM_ROUNDS }}
-<p>This was the final round. Round {{ payment_round }} was chosen as your payment round. You earned {{ player.participant.payoff_in_real_world_currency }} in addition to your participation fee.  You will now take a short exit survey.</p>
+<p>This was the final round.  You will now take a short exit survey and then be informed of your payment.</p>
 {{ else }}
 <p>The other player made their choice. You will be randomly matched with a player and we will now move to the next round.</p>
 {{ endif }}
@@ -14,7 +14,9 @@
 <ul>
     <li>You will be paid for your performance in a randomly selected round.</li>
     <li>You will be randomly rematched with another participant each round.</li>
-    <li>The payoff you receive for the randomly selected game depends on you and the player whom you were matched with's decision during that round.</li>
+    <li>You will be randomly assigned a new role each round.</li>
+    <li>Your payoff depends both on what you choose and what the other player chooses</li>
 </ul>
+
 
 {{ endblock }}

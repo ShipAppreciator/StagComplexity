@@ -270,8 +270,24 @@ class ThankYou(Page):
 
     @staticmethod
     def vars_for_template(player: Player):
-        return dict(payoff=player.participant.payoff_in_real_world_currency)
-
+        payment_round = player.session.vars['payment_round']
+        p_payment_round = player.in_round(payment_round)
+        partner = p_payment_round.group.get_player_by_id(
+            2 if p_payment_round.id_in_group == 1 else 1
+        )
+        comp_earnings = sum([
+            player.in_round(1).comp1_correct,
+            player.in_round(1).comp2_correct,
+            player.in_round(1).comp3_correct,
+        ])
+        game_earnings = cu(p_payment_round.payoff)
+        return dict(
+            payment_round=payment_round,
+            your_choice=p_payment_round.choice,
+            other_choice=partner.choice,
+            comp_earnings=comp_earnings,
+            game_earnings=game_earnings,
+        )
 page_sequence = [
     Instructions,
     ComprehensionCheck,
