@@ -1,8 +1,7 @@
 {{ block title }}Comprehension Check Results{{ endblock }}
 
 {{ block content }}
-<p>You answered <strong>{{ total }} out of 3</strong> questions correctly and have earned <strong>${{ total }}.00</strong> for the comprehension check.</p>
-
+<p>You answered <strong>{{ total }} out of 3</strong> questions correctly. You earned $0.50 per correct answer.</p>
 <table class="table table-bordered w-auto">
     <thead>
         <tr>
@@ -25,7 +24,7 @@
         <tr>
             <td>If you are Player 2, you will not see the other player's action.</td>
             <td>{{ if comp3_correct }}<span style="color:green;">✓ Correct</span>{{ else }}<span style="color:red;">✗ Incorrect</span>{{ endif }}</td>
-            <td>True — Player 2 does not observe Player 1's choice before deciding.</td>
+            <td>False — Player 2 observes Player 1's choice before deciding.</td>
         </tr>
     </tbody>
 </table>

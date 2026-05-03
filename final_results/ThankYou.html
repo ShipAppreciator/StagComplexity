@@ -1,0 +1,16 @@
+{{ block title }}Thank You{{ endblock }}
+
+{{ block content }}
+<h3>Thank you for participating!</h3>
+
+<p>Your payment for this experiment is as follows:</p>
+<ul>
+    <li>Participation fee: $5.00</li>
+    <li>Stag hunt payment: {{ stag_payoff }}</li>
+    <li>Bomb task payment: {{ bret_payoff }}</li>
+    <li>Cognitive reflection test payment: {{ crt_payoff }}</li>
+    <li>Total performance payment: {{ total }}</li>
+</ul>
+
+<p>Please wait for the experimenter to call on you to receive your payment.</p>
+{{ endblock }}

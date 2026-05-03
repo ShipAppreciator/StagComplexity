@@ -1,0 +1,173 @@
+{{ block styles }}
+<link href="{{ static 'bret/css/custom.css' }}" rel="stylesheet"/>
+{{ endblock }}
+
+
+{{ block title }}
+{{ Lexicon.instructions }}
+{{ endblock }}
+
+{{ block content }}
+
+<div class="instructions">
+    <p>You are now beginning part two of the experiment </p>
+    <p>
+        Below, you will see a {{ C.NUM_ROWS }}×{{ C.NUM_COLS }} matrix containing {{ C.NUM_BOXES }} boxes on your screen (the numbers on each box will not be visible).
+    </p>
+
+    <table style="border-collapse: collapse; width: 80%; max-width: 800px; margin: 20px auto; text-align: center; font-family: Arial, sans-serif; background-color: #f9f9f9; border: 2px solid #333" >
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>12</td>
+      <td>13</td>
+      <td>14</td>
+      <td>15</td>
+      <td>16</td>
+      <td>17</td>
+      <td>18</td>
+      <td>19</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>22</td>
+      <td>23</td>
+      <td>24</td>
+      <td>25</td>
+      <td>26</td>
+      <td>27</td>
+      <td>28</td>
+      <td>29</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td>32</td>
+      <td>33</td>
+      <td>34</td>
+      <td>35</td>
+      <td>36</td>
+      <td>37</td>
+      <td>38</td>
+      <td>39</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td>42</td>
+      <td>43</td>
+      <td>44</td>
+      <td>45</td>
+      <td>46</td>
+      <td>47</td>
+      <td>48</td>
+      <td>49</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <td>51</td>
+      <td>52</td>
+      <td>53</td>
+      <td>54</td>
+      <td>55</td>
+      <td>56</td>
+      <td>57</td>
+      <td>58</td>
+      <td>59</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <td>61</td>
+      <td>62</td>
+      <td>63</td>
+      <td>64</td>
+      <td>65</td>
+      <td>66</td>
+      <td>67</td>
+      <td>68</td>
+      <td>69</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <td>71</td>
+      <td>72</td>
+      <td>73</td>
+      <td>74</td>
+      <td>75</td>
+      <td>76</td>
+      <td>77</td>
+      <td>78</td>
+      <td>79</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <td>81</td>
+      <td>82</td>
+      <td>83</td>
+      <td>84</td>
+      <td>85</td>
+      <td>86</td>
+      <td>87</td>
+      <td>88</td>
+      <td>89</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <td>91</td>
+      <td>92</td>
+      <td>93</td>
+      <td>94</td>
+      <td>95</td>
+      <td>96</td>
+      <td>97</td>
+      <td>98</td>
+      <td>99</td>
+      <td>100</td>
+    </tr>
+  </table>
+
+    <p>
+        There is also a <i>"Start"</i> button. Once the button is clicked, the experiment begins. Every two seconds, a box will be collected, starting with Box 1 (top left) and ending with Box 100 (bottom right).
+    </p>
+
+    <p>
+        You earn <strong>1 point</strong> for every box collected. Once a box is collected, it becomes marked, and your earnings are updated accordingly. You can see the number of boxes collected at any time.
+    </p>
+
+    <p>
+        However, these earnings are only potential, because behind one of the boxes a <strong>bomb</strong> is hidden that will destroy everything you have collected in this part of the experiment. You do not know the location of the bomb, and even if you collect it, you will not know until the end of the experiment. <b>Your task is to decide when to stop collecting. You stop the process by hitting <i>"Stop"</i> at any time, and you will not be able to continue once you hit this button.</b>
+    </p>
+
+    <p>
+        When you hit <i>"Solve"</i>, the interface will show whether the boxes you collected contained a bomb
+    </p>
+
+    <p>
+        If none of the boxes you have collected contain the bomb when you hit <i>"Stop"</i>, you will receive the points you have accumulated. However, if you have collected the box with the bomb, you will earn <strong>0</strong>. Remember, you will not be told whether a box you have collected contains the bomb until after you hit the <i>"Solve"</i> button. Therefore, the earnings displayed on the screen are only potential, and you will receive them only if none of the boxes you collected contained the bomb.
+    </p>
+
+    <p>
+        Points earned in this match will be converted to dollars at a rate of 5 cents per point or <strong>1 dollars per 20 points</strong>.
+    </p>
+
+    <p> Remember, decisions in the first part do not influence this part. </p>
+
+    <p> Please note that there will be no trial period. You will take only one decision, and this will be payoff relevant. You will see now the main interface of the experiment. Take your time to observe it, before you click on <i>"Start"</i>. </p>
+
+    <p> Please wait for the researcher to start part 2 </p>
+
+</div>
+
+{{ endblock }}
